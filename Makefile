@@ -1,19 +1,24 @@
+# Compiler
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -pedantic
 
-SRC_DIR = src
+# Directories
 BIN_DIR = bin
 
-SOURCES = $(SRC_DIR)/main.cpp $(SRC_DIR)/calc.cpp
-HEADERS = $(SRC_DIR)/calc.h
+# Files
+SOURCES = main.cpp calc.cpp
+HEADERS = calc.h
 OUTPUT = $(BIN_DIR)/program
 
+# Build target
 all: $(OUTPUT)
 
+# Link and create executable
 $(OUTPUT): $(SOURCES) $(HEADERS)
 	mkdir -p $(BIN_DIR)
 	$(CXX) $(CXXFLAGS) -o $(OUTPUT) $(SOURCES)
 
+# Clean
 clean:
 	rm -rf $(BIN_DIR)
 
