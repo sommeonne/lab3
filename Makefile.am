@@ -20,3 +20,4 @@ clean-local:
 	rm -rf $(BIN_DIR)
 
 .PHONY: all clean
+

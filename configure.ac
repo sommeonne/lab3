@@ -6,13 +6,10 @@ AC_INIT([my_project], [1.0], [your.email@example.com])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([foreign])
 
-# Check for the C++ compiler
+# Enable C++ support
 AC_PROG_CXX
 
-# Debian packaging check
-AC_PATH_PROG([DPKG], [dpkg-buildpackage])
-
-# Define the Makefile
+# Create the Makefile
 AC_CONFIG_FILES([Makefile])
 
 # Output the configuration scripts
