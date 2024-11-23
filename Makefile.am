@@ -1,23 +1,13 @@
-# Compiler settings
-AM_CXXFLAGS = -std=c++17 -Wall -Wextra -pedantic
+# Makefile.am for Automake project
 
-# Directories
-BIN_DIR = bin
-
-# Files
-SOURCES = main.cpp calc.cpp
-OUTPUT = $(BIN_DIR)/program
-
-# Build target
+# Define the bin programs
 bin_PROGRAMS = program
-program_SOURCES = $(SOURCES)
 
-# Install rules
-install-binPROGRAMS = $(OUTPUT)
+# Include source files
+program_SOURCES = main.cpp calc.cpp
 
-# Clean up
-clean-local:
-	rm -rf $(BIN_DIR)
+# Define the headers
+program_HEADERS = calc.h
 
-.PHONY: all clean
-
+# Install the headers
+dist_include_HEADERS = calc.h
