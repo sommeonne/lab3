@@ -15,11 +15,8 @@ all: $(OUTPUT)
 
 # Link and create executable
 $(OUTPUT): $(SOURCES) $(HEADERS)
-	mkdir -p $(BIN_DIR)
-	$(CXX) $(CXXFLAGS) -o $(OUTPUT) $(SOURCES)
+	mkdir -p $(BIN_DIR)  # Створює папку bin, якщо її ще немає
+	$(CXX) $(CXXFLAGS) -o $(OUTPUT) $(SOURCES)  # Компілює програму в папку bin
 
-# Clean
-clean:
-	rm -rf $(BIN_DIR)
+.PHONY: all
 
-.PHONY: all clean
