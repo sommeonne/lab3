@@ -1,17 +1,18 @@
 AUTOMAKE_OPTIONS = foreign
 
+# Define the main program
 bin_PROGRAMS = lab3
-calculator_SOURCES = main.cpp calc.cpp calc.h
+lab3_SOURCES = main.cpp calc.cpp calc.h  # Source files for the 'lab3' program
 
-# For the test executable, ensure linker flags are correctly placed
-test_calculator_LDFLAGS = -pthread
+# Define the test program
+check_PROGRAMS = test_calculator
+test_calculator_SOURCES = test_calculator.cpp calc.cpp  # Add necessary test sources
 
-# Add your test sources here
-test_calculator_SOURCES = test_calculator.cpp
+# Linker flags for test program
+test_calculator_LDFLAGS = -pthread  # Correct place for '-pthread'
 
-# Your custom rules for Debian packaging (if you still need them)
-dist_deb:
-	@echo "Creating Debian package..."
-	mkdir -p debian
-	cd debian && dh_make --createorig -s -y --packagename=lab3
+# Additional libraries needed for tests
+test_calculator_LDADD = -lgtest -lgtest_main  # Link with Google Test libraries
+
+# Add other necessary rules for your project if needed
 
