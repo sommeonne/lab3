@@ -1,26 +1,26 @@
-# Compiler
-CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -pedantic
+name: C++ Build
 
-# Directories
-BIN_DIR = bin
+on:
+  push:
+    branches:
+      - branchMake
+  pull_request:
+    branches:
+      - branchMake
 
-# Files
-SOURCES = main.cpp calc.cpp
-HEADERS = calc.h
-OUTPUT = $(BIN_DIR)/program
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-# Build target
-all: $(OUTPUT)
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-# Link and create executable
-$(OUTPUT): $(SOURCES) $(HEADERS)
-	mkdir -p $(BIN_DIR)
-	$(CXX) $(CXXFLAGS) -o $(OUTPUT) $(SOURCES)
+    - name: Install g++
+      run: sudo apt-get update && sudo apt-get install -y g++-10
 
-# Clean
-clean:
-	rm -rf $(BIN_DIR)
+    - name: Build with Makefile
+      run: make all CXX=g++-10
 
-.PHONY: all clean
-
+    - name: Verify binary file
+      run: ls -l bin/program || echo "Binary not found"
