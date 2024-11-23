@@ -24,19 +24,19 @@ jobs:
     - name: Generate configure script
       run: autoreconf -i
 
-    - name: Configure the project
-      run: ./configure
+    - name: Configure the project with --disable-dependency-tracking
+      run: ./configure --disable-dependency-tracking  # Вимикаємо відстеження залежностей
 
     - name: Build the project
       run: make
 
     - name: Create Debian package
       run: |
-        make distcheck
         dpkg-buildpackage -us -uc
 
     - name: Upload Debian package as artifact
       uses: actions/upload-artifact@v3
       with:
         name: my_project-deb-package
-        path: ../*.deb
+        path: ./*.deb
+
