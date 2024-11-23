@@ -1,9 +1,12 @@
 AC_INIT([Calculator Program], [1.0], [brukaliuk.serhii@lll.kpi.ua])
 AM_INIT_AUTOMAKE([foreign])
 AC_PROG_CXX
+AC_PROG_CC
+AC_CONFIG_AUX_DIR([build-aux])
+AC_CONFIG_FILES([Makefile])
 
-# Додаємо підтримку для Debian пакування
-AC_CONFIG_AUX_DIR([build-aux])   # Вказуємо директорію для auxiliary files, що потрібні для пакування
-AC_CONFIG_FILES([Makefile debian/rules debian/control])  # Вказуємо важливі файли, що будуть генеруватися для пакування
+# Перевіряємо наявність Google Test
+AC_CHECK_LIB([gtest], [main], [], [AC_MSG_ERROR([Google Test library not found])])
+
 AC_OUTPUT
 

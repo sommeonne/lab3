@@ -1,0 +1,26 @@
+name: Run Unit Tests
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up build dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y g++ make automake libgtest-dev
+
+    - name: Configure the build
+      run: |
+        ./autogen.sh
+        ./configure
+
+    - name: Build the project
+      run: make
+
+    - name: Run the tests
+      run: make check

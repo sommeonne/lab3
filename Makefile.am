@@ -1,13 +1,16 @@
-# Makefile.am для деб-пакування
 AUTOMAKE_OPTIONS = foreign
 
 bin_PROGRAMS = lab3
-calculator_SOURCES = main.cpp calc.cpp calc.h
+lab3_SOURCES = main.cpp calc.cpp calc.h
 
-# Задаємо власні правила для створення пакету .deb
-dist_deb:
-	@echo "Створення Debian пакету..."
-	# Перевірка на наявність директорії debian
-	mkdir -p debian
-	cd debian && dh_make --createorig -s -y --packagename=lab3
+# Юніт-тестові файли
+TEST_SOURCES = test_calculator.cpp
+
+# Додаємо Google Test до компіляції
+LIBS = -lgtest -lgtest_main -pthread
+
+# Створення тестового виконуваного файлу
+check_PROGRAMS = test_calculator
+test_calculator_SOURCES = $(TEST_SOURCES)
+test_calculator_LDADD = $(LIBS)
 
