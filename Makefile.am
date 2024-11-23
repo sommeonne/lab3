@@ -1,16 +1,17 @@
 AUTOMAKE_OPTIONS = foreign
 
 bin_PROGRAMS = lab3
-lab3_SOURCES = main.cpp calc.cpp calc.h
+calculator_SOURCES = main.cpp calc.cpp calc.h
 
-# Юніт-тестові файли
-TEST_SOURCES = test_calculator.cpp
+# For the test executable, ensure linker flags are correctly placed
+test_calculator_LDFLAGS = -pthread
 
-# Додаємо Google Test до компіляції
-LIBS = -lgtest -lgtest_main -pthread
+# Add your test sources here
+test_calculator_SOURCES = test_calculator.cpp
 
-# Створення тестового виконуваного файлу
-check_PROGRAMS = test_calculator
-test_calculator_SOURCES = $(TEST_SOURCES)
-test_calculator_LDADD = $(LIBS)
+# Your custom rules for Debian packaging (if you still need them)
+dist_deb:
+	@echo "Creating Debian package..."
+	mkdir -p debian
+	cd debian && dh_make --createorig -s -y --packagename=lab3
 
