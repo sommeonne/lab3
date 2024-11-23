@@ -1,29 +1,22 @@
-# Compiler
-CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -pedantic
+# Compiler settings
+AM_CXXFLAGS = -std=c++17 -Wall -Wextra -pedantic
 
 # Directories
 BIN_DIR = bin
 
 # Files
 SOURCES = main.cpp calc.cpp
-HEADERS = calc.h
 OUTPUT = $(BIN_DIR)/program
 
 # Build target
-all: $(OUTPUT)
+bin_PROGRAMS = program
+program_SOURCES = $(SOURCES)
 
-# Link and create executable
-$(OUTPUT): $(SOURCES) $(HEADERS)
-	mkdir -p $(BIN_DIR)
-	$(CXX) $(CXXFLAGS) -o $(OUTPUT) $(SOURCES)
+# Install rules
+install-binPROGRAMS = $(OUTPUT)
 
-# Clean
-clean:
+# Clean up
+clean-local:
 	rm -rf $(BIN_DIR)
 
-# Debian package generation
-distcheck: dist
-	dpkg-buildpackage -us -uc
-
-.PHONY: all clean distcheck
+.PHONY: all clean
