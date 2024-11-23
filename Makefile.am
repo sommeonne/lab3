@@ -1,11 +1,29 @@
-# Makefile.am
+# Compiler
+CXX = g++
+CXXFLAGS = -std=c++17 -Wall -Wextra -pedantic
 
-# Пакет для автоматичної збірки
-AUTOMAKE_OPTIONS = foreign
+# Directories
+BIN_DIR = bin
 
-# Зазначення програм для компіляції
-bin_PROGRAMS = program
-program_SOURCES = main.cpp calc.cpp
-program_CPPFLAGS = -std=c++17 -Wall -Wextra -pedantic
+# Files
+SOURCES = main.cpp calc.cpp
+HEADERS = calc.h
+OUTPUT = $(BIN_DIR)/program
 
+# Build target
+all: $(OUTPUT)
 
+# Link and create executable
+$(OUTPUT): $(SOURCES) $(HEADERS)
+	mkdir -p $(BIN_DIR)
+	$(CXX) $(CXXFLAGS) -o $(OUTPUT) $(SOURCES)
+
+# Clean
+clean:
+	rm -rf $(BIN_DIR)
+
+# Debian package generation
+distcheck: dist
+	dpkg-buildpackage -us -uc
+
+.PHONY: all clean distcheck

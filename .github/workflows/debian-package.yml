@@ -1,0 +1,42 @@
+name: Build and Package Debian
+
+on:
+  push:
+    branches:
+      - branchAutoPackage
+  pull_request:
+    branches:
+      - branchAutoPackage
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Set up dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y automake autoconf g++ make debhelper dpkg-dev
+
+    - name: Generate configure script
+      run: autoreconf -i
+
+    - name: Configure the project
+      run: ./configure
+
+    - name: Build the project
+      run: make
+
+    - name: Create Debian package
+      run: |
+        make distcheck
+        dpkg-buildpackage -us -uc
+
+    - name: Upload Debian package as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: my_project-deb-package
+        path: ../*.deb
