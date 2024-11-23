@@ -1,0 +1,13 @@
+Source: lab3
+Section: utils
+Priority: optional
+Maintainer: Serhii Brukaliuk <brukaliuk.serhii@lll.kpi.ua>
+Build-Depends: debhelper (>= 12), g++ 
+Standards-Version: 4.5.0
+Homepage: https://example.com
+
+Package: lab3
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: A simple calculator program
+

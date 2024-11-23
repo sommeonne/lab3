@@ -1,17 +1,9 @@
-# -*- Autoconf -*-
-AC_PREREQ([2.69])
-AC_INIT([my_project], [1.0], [your.email@example.com])
-
-# Set the minimum version of Automake and Automake setup
-AC_CONFIG_AUX_DIR([build-aux])
+AC_INIT([Calculator Program], [1.0], [brukaliuk.serhii@lll.kpi.ua])
 AM_INIT_AUTOMAKE([foreign])
-
-# Enable C++ support
 AC_PROG_CXX
 
-# Create the Makefile
-AC_CONFIG_FILES([Makefile])
-
-# Output the configuration scripts
+# Додаємо підтримку для Debian пакування
+AC_CONFIG_AUX_DIR([build-aux])   # Вказуємо директорію для auxiliary files, що потрібні для пакування
+AC_CONFIG_FILES([Makefile debian/rules debian/control])  # Вказуємо важливі файли, що будуть генеруватися для пакування
 AC_OUTPUT
 

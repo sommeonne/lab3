@@ -1,14 +1,13 @@
-# Makefile.am for Automake project
+# Makefile.am для деб-пакування
+AUTOMAKE_OPTIONS = foreign
 
-# Define the bin programs
-bin_PROGRAMS = program
+bin_PROGRAMS = lab3
+calculator_SOURCES = main.cpp calc.cpp calc.h
 
-# Include source files
-program_SOURCES = main.cpp calc.cpp
-
-# Clean up
-clean-local:
-	rm -rf $(BIN_DIR)
-
-.PHONY: clean-local
+# Задаємо власні правила для створення пакету .deb
+dist_deb:
+	@echo "Створення Debian пакету..."
+	# Перевірка на наявність директорії debian
+	mkdir -p debian
+	cd debian && dh_make --createorig -s -y --packagename=lab3
 
