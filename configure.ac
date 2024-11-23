@@ -1,9 +1,13 @@
 AC_INIT([Calculator Program], [1.0], [brukaliuk.serhii@lll.kpi.ua])
+AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([foreign])
+
+# Enable CC and CXX programs
+AC_PROG_CC
 AC_PROG_CXX
 
-# Додаємо підтримку для Debian пакування
-AC_CONFIG_AUX_DIR([build-aux])   # Вказуємо директорію для auxiliary files, що потрібні для пакування
-AC_CONFIG_FILES([Makefile debian/rules debian/control])  # Вказуємо важливі файли, що будуть генеруватися для пакування
+# Define the debian-specific packaging files
+AC_CONFIG_FILES([Makefile debian/rules debian/control debian/changelog])
+
 AC_OUTPUT
 

@@ -1,13 +1,10 @@
-# Makefile.am для деб-пакування
 AUTOMAKE_OPTIONS = foreign
 
+# Define the main program
 bin_PROGRAMS = lab3
-calculator_SOURCES = main.cpp calc.cpp calc.h
+lab3_SOURCES = main.cpp calc.cpp calc.h  # Source files for the 'lab3' program
 
-# Задаємо власні правила для створення пакету .deb
-dist_deb:
-	@echo "Створення Debian пакету..."
-	# Перевірка на наявність директорії debian
-	mkdir -p debian
-	cd debian && dh_make --createorig -s -y --packagename=lab3
+# Define the Debian packaging rules
+EXTRA_DIST = debian/rules debian/control debian/changelog  # Files to be included in the distribution
+
 
