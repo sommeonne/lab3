@@ -8,6 +8,6 @@ program_SOURCES = main.cpp calc.cpp
 
 # Clean up
 clean-local:
-    rm -rf $(BIN_DIR)
+	rm -rf $(BIN_DIR)
 
 .PHONY: clean-local
