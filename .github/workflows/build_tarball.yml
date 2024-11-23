@@ -1,0 +1,40 @@
+name: Build and Package C++ Project
+
+on:
+  push:
+    branches:
+      - branchAutomake
+  pull_request:
+    branches:
+      - branchAutomake
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y automake autoconf g++ make
+
+    - name: Generate configure script
+      run: autoreconf -i
+
+    - name: Configure the project
+      run: ./configure
+
+    - name: Build the project
+      run: make
+
+    - name: Create tarball distribution
+      run: make dist
+
+    - name: Upload tarball as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my_project-tarball
+        path: my_project-*.tar.gz
