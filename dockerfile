@@ -16,4 +16,3 @@ COPY --from=builder /app/http_server /usr/local/bin/http_server
 EXPOSE 8080
 
 CMD ["/usr/local/bin/http_server"]
-
