@@ -6,6 +6,8 @@
 #include <cmath>
 #include <chrono>  
 #include "calc.h"
+#include "calc.cpp"
+#include <thread> 
 
 MHD_Result handle_request(void *cls, MHD_Connection *connection, const char *url,
                           const char *method, const char *version, const char *upload_data,
@@ -34,11 +36,9 @@ MHD_Result handle_request(void *cls, MHD_Connection *connection, const char *url
 
         std::string response = "Calculation completed. Elapsed time: " + std::to_string(elapsed.count()) + " seconds\n";
 
-        // Використовуємо MHD_create_response_from_buffer з додатковим параметром MHD_RESPMEM_PERSISTENT
         struct MHD_Response *response_obj = MHD_create_response_from_buffer(response.size(),
-            const_cast<char*>(response.c_str()), MHD_RESPMEM_PERSISTENT);  // Вказуємо, що пам'ять повинна бути збережена
+            const_cast<char*>(response.c_str()), MHD_RESPMEM_PERSISTENT);
 
-        // Додаємо заголовок для текстового типу контенту
         MHD_add_response_header(response_obj, "Content-Type", "text/plain");
 
         int ret = MHD_queue_response(connection, MHD_HTTP_OK, response_obj);
@@ -64,7 +64,9 @@ int main() {
 
     std::cout << "Server is running on port " << PORT << "..." << std::endl;
 
-    getchar();
+    while (true) {
+        std::this_thread::sleep_for(std::chrono::seconds(60)); 
+    }
 
     MHD_stop_daemon(daemon);
     return 0;
